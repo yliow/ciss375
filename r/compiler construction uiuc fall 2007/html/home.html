@@ -1,0 +1,311 @@
+<html>
+
+
+<!-- Mirrored from www.cs.uiuc.edu/class/fa07/cs426/html/home.html by HTTrack Website Copier/3.x [XR&CO'2006], Sat, 15 Dec 2007 19:50:01 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
+<head> 
+  <title>CS426</title>
+<!-- <base href="http://www.cs.uiuc.edu/class/fa05/cs426/"> -->
+</head>
+
+<body	bgcolor="#F9F9F9">
+
+<br>
+<center>
+<!-- <img  src="../images/cs426.jpg"> </a> -->
+
+<h1>
+<font size=+3 color="#990044">
+CS426: Compiler Construction<br>
+</font> 
+</h1>
+
+<h3>
+Fall 2007 : Course Number 43355 (3 hours) / 43356 (4 hours)
+</h3>
+
+
+<em> 12:30-1:45 TuTh, 1302 SC </em>
+<hr>
+</center>
+<p>
+
+<h3>Teaching Staff</h3>
+<ul>
+
+<i>Professor</i>: <a href="http://www.cs.uiuc.edu/~vadve">Vikram Adve</a>
+        <br>
+<i>Office</i>: 4235 SC
+        <br>
+<i>Phone</i>: 244-2016
+        <br>
+<i>Email</i>: <a href="mailto:vadve@cs.uiuc.edu">vadve@cs.uiuc.edu</a>
+        <br>
+<i>Office Hours</i>: Wednesdays 1:30-3pm, or by appointment.
+	<br>
+<i>Secretary</i>: Ms. Molly Flesner, 4120 SC, 244-6813
+
+<p>
+
+<p>
+<i>Teaching Assistant</i>: <a href="http://llvm.cs.uiuc.edu/~bocchino">Rob Bocchino</a>
+<br>
+<i>Office</i>: 4307A SC
+<br>
+<i>Phone</i>:  244-7115
+<br>
+<i>Email</i>: <a href="mailto:bocchino@uiuc.edu">bocchino@uiuc.edu</a>
+        <br>
+<i>Office Hours</i>: Wednesdays, 3-4 p.m., or by appointment.
+
+</ul>
+
+<h3>Textbook </h3> 
+
+<ul> The textbook for the class is <a
+href="http://www.aw-bc.com/catalog/academic/product/0,1144,0321486811,00.html">
+<em> Compilers - Principles, Techniques, and Tools (2nd Edition)
+</em></a> by Aho, Lam, Sethi, and Ullman, published by Addison-Wesley.
+This is the well known "dragon book."  Please note that we are using
+the recently released <b>second edition</b> of the book.  The first
+edition is out of date.  Copies of this book are on reserve at
+Grainger Engineering Library.  </ul>
+
+<h3>Additional Reading</h3> 
+
+<ul> 
+<p>
+<li> <a
+href="http://books.elsevier.com/us/bookscat/search/details.asp?country=United+States&amp;isbn=155860698X&amp;community=mk&amp;mscssid=TE55N08NXPX59KR82WPRKQLLXDA39MV3">
+<em> Engineering a Compiler</em><a> by Cooper and Torczon, published
+by Morgan Kaufman.  This book provides good introductory coverage of
+many topics in the course.  You may find it helpful to consult this
+book in addition to the book by Aho et al.  Copies of this book are on
+reserve at Grainger Engineering Library.
+
+<p>
+<li>
+<a href="http://books.elsevier.com/us/mk/us/subindex.asp?isbn=1558603204&amp;country=United+States&amp;community=mk&amp;mscssid=5UPDAFRD3MS58HV16V41BVQA6H5J3SD2">
+<em>Advanced Compiler Design and Implementation </em></a> by Steven
+S. Muchnick, published by Morgan Kaufmann.  This book provides
+detailed descriptions of many analysis and optimization passes, and
+some useful case studies of real-world compilers.  Copies of this book
+are on reserve at Grainger Engineering Library.
+<i>If you happen to buy this book, try to get the latest printing,
+since it has the fewest errors.</i>
+
+<p>
+<li> One or more selected papers.  These will be available via the
+Papers link at the left.
+
+</ul>
+
+<!--
+<h3>
+Topical Outline
+</h3>
+<ul>
+Click <a href="topical.html">here</a>.
+</ul>
+-->
+
+<h3>
+Course Newsgroup
+</h3>
+<ul>
+
+You will be using the class newsgroup <a href="news:class.cs426">
+class.cs426</a> for questions to the instructor and discussions among
+yourselves.  Please do not use this newsgroup for any posts
+other than those relating to the course. 
+
+<p>
+<i>NOTE: No solutions or code should be posted by students on the newsgroup.
+Only the instructors may post solutions or hints. </i>
+
+<p>
+If you have not read news at UIUC before, you can find information on
+accessing the newsgroup <a
+href="https://agora.cs.uiuc.edu/display/tsg/news.cs.uiuc.edu">here</a>.
+The server for reading news is <tt>news.cs.uiuc.edu</tt>.
+
+</ul>
+
+<h3>
+Lecture Notes
+</h3>
+<ul>
+Copies of the slides used in class will be posted on the
+course Web page before each class.  This way, you do not need to
+copy down material on the slides.  Nevertheless, you <b>should</b> take
+detailed notes during the lectures.
+ 
+<p>
+<b><i>NOTE: The slides are generally sparse, containing only brief bullets on
+key points.  For example, they are insufficient for studying for
+exams.  Please make sure to take notes during the lectures.</i></b>
+
+</ul>
+
+<h3>
+Homeworks and Exams
+</h3>
+<ul>
+There will be two homeworks and two exams, spaced out over the course
+of the semester.  The midterm exam will be in class on October 25.
+The final exam will be at the normal time scheduled by the University
+for our class slot.
+</ul>
+
+<h3>
+Grading Policy
+</h3>
+<ul>
+
+<table border=1>
+<td>        	<td>UG or 0.75 unit grads	<td>1-unit grads<tr><tr>
+<td>Project	<td>40%			<td>52%<tr>
+<td>Homeworks	<td>20%			<td>16%<tr>
+<td>Exams 	<td>40% 		<td>32%<tr>
+</table>
+
+
+<h4> Project grading </h4>
+
+The project will be due in four parts, and will be graded as the semester
+progresses.
+
+Graduate students who are taking the course for 1 unit will be required to
+do a fifth and more substantial part during roughly the second half of the
+semester.  The total score for the semester will be computed by scaling all
+the basic course components by 0.8, and giving the unit project a weighting of
+0.2, i.e.,
+<br><tt>Total = 0.8 * BasicTotal + 0.2 * UnitProjectScore</tt></br>
+
+<h4> Grad students vs. undergrads</h4>
+Graduate students will be graded separately from undergraduate students. 
+
+</ul>
+
+<h3>
+Project Description
+</h3>
+
+<ul>
+This class has a semester project divided into four MPs.  The overall
+goals for the project will be described on the course project page
+shortly.
+</ul>
+
+<h3>
+Computing Facilities
+</h3>
+
+<ul>
+<li> We will use the EWS machines for the programming projects.
+See <a href="http://www.ews.uiuc.edu/">the EWS web site</a> for more
+information. 
+
+<!-- on the first floor of DCL.
+     The machine names are <tt>csil-suna[0-48].cs.uiuc.edu</tt> and
+     <tt>csil-sunb[1-40].cs.uiuc.edu</tt>.
+     The <A HREF="http://www.cs.uiuc.edu/class/cs426/facilities.html" TARGET="_top">
+     CSIL facilities page</A> explains precisely which labs have SPARCs.
+-->
+
+<li> All students should automatically have accounts assigned.  You are
+     responsible for getting your own passwords and making sure you can
+     access the account in the first week of classes.
+
+</ul>
+
+<h3>
+Course Policies
+</h3>
+<ul>
+
+<h4> Incomplete MPs </h4>
+<ul>
+
+10 points are reserved for completely working MPs with no significant
+errors. So if your MP is not working (with respect to the test files we
+use), expect to lose 10 points right away.<br><BR>
+
+Also, all the MPs (except the first one) are dependent on the previous ones.
+If you could not get a previous MP working, and don't want to finish it before you start on the next one, then you can get the previous MP solution from the TA but with a penalty of 10% on the next one.  For example, in MP3 you are supposed to use your MP2 solution and if you could not get MP2 working before starting on MP3, you can get our code for MP2 from the TA, but you will be penalized 10% on MP3. Though this means you will be penalized twice for not finishing an MP, an important aspect of this project is building a working compiler, not just building a piece, then throwing it away before building the next one. <BR><BR>
+
+</ul>
+<h4> Lateness </h4>
+<ul>
+Late programming assignments will be penalized 2 points per hour
+late (or fraction
+thereof), counted from 5pm on the due date.&nbsp; <b>This means being
+several hours late could affect your grade</b>.
+<p>There are two circumstances for which we'll give &quot;free&quot; extensions:</p>
+
+<ul>
+<li> <em>Serious personal problems</em>. These will be dealt with individually. They are 
+typically either <em>serious</em> illness to you (doctor's verification required) or
+a major family emergency.<br>
+<li> <em> Extended lab downtime</em>. This is extremely rare. A whole day of
+  downtime in the
+lab <em>might</em> qualify. Minor downtime <em>does not</em> qualify. "Flakiness all
+weekend" <em>does not</em> qualify. Accidental loss of files does <i>not</i>
+  qualify.&nbsp; If you have chosen
+to work on some other machine other than the designated class machines, then you do so
+at your own risk. To protect yourself, keep recent backups on the class machines so 
+that if your machine breaks, you can recover. 
+</ul>
+</ul>
+
+<h4> Cheating </h4>
+<ul>
+<p> You are NOT to copy solutions from ANY source 
+(including, but not limited to, books, people, old class notes or 
+handouts).
+While the pressures of many classes, homeworks, work and/or extracurricular 
+activities can be great, this is <b>never</b> an excuse for copying solutions 
+from others. "Helping" somebody by allowing them to "borrow" your homework is 
+not doing them a favor either, but indicates your approval and active 
+participation in such activities.&nbsp; Refer to the Campus Code regarding academic
+integrity.&nbsp; Cheating 
+will result in a reduced grade, or a grade "E" for the course. If you are 
+aware of any breach of academic integrity, it is your responsibility to 
+report it to the instructor.<br><br>
+
+Discussing your problems with other students, however, <i>is </i>encouraged and
+even highly recommended. This means asking someone to look at parts of your code
+to give you advice, asking them for suggestions when you face an obstacle,
+working out example exercises together that are not on an assigned homework, or just
+discussing any aspect of the material.&nbsp; What you may <i>not </i>do is to
+copy or any in way use code or homework solutions written by anyone else or
+dictated by anyone else.&nbsp; As responsible adults, you can draw the distinction
+between cheating and honest behavior: exercise your judgement and try to
+preserve the highest level of professional integrity in everything you do.</p>
+
+<p>
+<i>Bottom line: You may discuss difficulties with others and get
+occasional help with debugging but
+<b>you must write your code entirely by yourself</b>.</i></p>
+
+</ul>
+</ul>
+
+<h3>
+How to Get the Most out of this Course
+</h3>
+<ol>
+  <li>Read the text as it is quite thorough, with many examples 
+    worked out, good motivating discussions, and useful intuition.</li>
+  <li>Participate actively in class: ask questions when you don't understand
+    something, and share in the in-class exercises.</li>
+  <li>Do the homeworks and project assignments ahead of time whenever
+    possible.&nbsp; Working madly to beat a deadline is a terrible way to learn!</li>
+</ol>
+<hr>
+
+</body>
+
+<!-- Mirrored from www.cs.uiuc.edu/class/fa07/cs426/html/home.html by HTTrack Website Copier/3.x [XR&CO'2006], Sat, 15 Dec 2007 19:50:01 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
+</html>

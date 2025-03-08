@@ -1,0 +1,311 @@
+\section{Recursive descent parser}
+
+Recall that a parser builds a derivation from a stream of tokens
+based on a given grammar.
+Builda a derivation of course builds a parse tree.
+
+A \defterm{recursive descent parser} is a parser that
+builds the derivation in the following way:
+\begin{itemize}
+  \li It starts with the start symbol
+  \li A production rule is chosen in the following way:
+  \begin{itemize}
+    \li Given a sentinel form, it selects the leftmost variable $V$
+    for substitution.
+    \li The produce rule $V \rightarrow w$ is chosen from the rules
+    so that the leftmost symbol of $w$ is the next expected terminal to derive or
+    it is a variable that can in turn derive the next expected terminal.
+  \end{itemize}
+\end{itemize}
+
+For instance consider the following grammar
+\begin{align*}
+  S &\rightarrow \texttt{if} \ E \ \texttt{then} \ S \ \texttt{else} \ S \\
+  S &\rightarrow \texttt{begin} \ S \ L \\
+  S &\rightarrow \texttt{print} \ \texttt{num} \ \texttt{;}\\
+  L &\rightarrow \texttt{;} \ S \ L \\
+  L &\rightarrow \texttt{end} \\
+  E &\rightarrow \texttt{num} \ \texttt{==} \ \texttt{num} 
+\end{align*}
+Consider the following stream of tokens
+\begin{console}
+if num(1) == num(2) then
+begin
+    if num(3) == num(4) then
+        print num(1000)
+end
+else
+begin
+    print num(2000);
+    print num(3000)
+end
+\end{console}
+Here's the derivation of the token stream:
+\begin{align*}
+  \underline{S}
+  &\implies \texttt{if} \ \underline{E} \ \texttt{then} \ S \ \texttt{else} \ S \\
+  &\implies \texttt{if} \ \texttt{num} \ \texttt{==} \ \texttt{num} \ \texttt{then} \ \underline{S} \ \texttt{else} \ S \\
+  &\implies \texttt{if} \ \texttt{num} \ \texttt{==} \ \texttt{num} \ \texttt{then} \ \texttt{begin} \ \underline{S} \ L \ \texttt{else} \ S \\
+  &\implies \texttt{if} \ \texttt{num} \ \texttt{==} \ \texttt{num} \ \texttt{then} \ \texttt{begin} \ \texttt{if} \ \underline{E} \ \texttt{then} \ S \ \texttt{else} \ S\ L \ \texttt{else} \ S
+\end{align*}
+Etc.
+
+Let me do it slowly, so that you see the process.
+
+\textsc{Step 1.}
+Since $S$ is the start symbol, I have to start with
+\begin{align*}
+  \underline{S}
+  &\implies 
+\end{align*}
+The token stream is
+\begin{console}
+if ...
+\end{console}
+The \textit{leftmost} token is \verb!if!.
+At some point in the derivation, you \textit{have} to spit out an \texttt{if} as the first token.
+Then I notice the production rule
+\[
+S \rightarrow \texttt{if} \ E \ \texttt{then} \ S \ \texttt{else} \ S \\
+\]
+is able to produce an \verb!if! token on the \textit{left}.  
+In fact it's the only rule that looks like
+\[
+S \rightarrow \texttt{if} \ ... \\
+\]
+
+\textsc{Step 2.}
+So now I have
+\begin{align*}
+  \underline{S}
+  &\implies \texttt{if} \ E \ \texttt{then} \ S \ \texttt{else} \ S 
+\end{align*}
+This means (removing the \texttt{if}),
+I need to continue with
+\begin{align*}
+  E \ \texttt{then} \ S \ \texttt{else} \ S
+  &\implies
+\end{align*}
+to derive (note that I removed the beginning \texttt{if})):
+\begin{console}[commandchars=\\\{\}]
+   num(1) == num(2) then
+begin
+    if num(3) == num(4) then
+        print num(1000)
+end
+else
+begin
+    print num(2000);
+    print num(3000)
+end
+\end{console}
+Then I noticed that
+the $E$ (the leftmost variable of the following):
+\begin{align*}
+  E \ \texttt{then} \ S \ \texttt{else} \ S
+  &\implies
+\end{align*}
+can derive the \verb!num(1)! token:
+\[
+  E \rightarrow \texttt{num} \ \texttt{==} \ \texttt{num} 
+\]
+(in fact it derives the next two tokens as well).
+There is no other production for $E$.
+Therefore I have the following derivation
+\[
+  E \ \texttt{then} \ S \ \texttt{else} \ S
+  \implies
+  \texttt{num(1)} \ \texttt{==} \ \texttt{num(2)} \ \texttt{then} \ S \ \texttt{else} \ S
+\]
+Removing what is already derived, basically I have to continue with
+\[
+  \texttt{then} \ S \ \texttt{else} \ S
+  \implies
+\]
+to derive
+\begin{console}[commandchars=\\\{\}]
+                    then
+begin
+    if num(3) == num(4) then
+        print num(1000)
+end
+else
+begin
+    print num(2000);
+    print num(3000)
+end
+\end{console}
+
+\textsc{Step 3.}
+From this step in the derivation
+\[
+  \texttt{then} \ S \ \texttt{else} \ S
+  \implies
+\]
+I have to derive the \texttt{then} in 
+\begin{console}[commandchars=\\\{\}]
+                    then
+begin
+    if num(3) == num(4) then
+        print num(1000)
+end
+else
+begin
+    print num(2000);
+    print num(3000)
+end
+\end{console}
+Obviously there's nothing to do --  
+I'm going to remove \texttt{then}.
+
+\textsc{Step 4.}
+Now I need to continue the derivation of
+\[
+  S \ \texttt{else} \ S
+  \implies
+\]
+to derive
+\begin{console}[commandchars=\\\{\}]      
+begin
+    if num(3) == num(4) then
+        print num(1000)
+end
+else
+begin
+    print num(2000);
+    print num(3000)
+end
+\end{console}
+
+Etc. Get it?
+
+That is the main idea behind recursive descent parsing.
+To summarize, 
+if I'm continuing the derivation with 
+\[
+\underline{V} w_0 \implies
+\]
+where $V$ is a variable
+to derive the remaining token stream
+\[
+t w_1
+\]
+where $t$ is a token,
+then I need to quickly find a production rule of the form
+\[
+V \rightarrow t w_2
+\]
+But ... be careful: What if there's a rule
+\[
+V \rightarrow \ep
+\]
+Then $t$ might be derived by \textit{another} variable after $V$,
+i.e., a variable in $w_0$.
+Another thing to note is that in the above example, I can read off very
+quickly what is the leftmost terminal that a variable can derive
+by looking at a production rule.
+For instance for the rule
+\[
+\underline{S}
+\implies \texttt{if} \ \underline{E} \ \texttt{then} \ S \ \texttt{else} \ S
+\]
+I see easily that $S$ can derive \texttt{if} (on the left).
+But it's possible that the leftmost terminal derived by a variable
+occurs after multiple derivations.
+For instance consider
+\begin{align*}
+  A \rightarrow BC \\
+  B \rightarrow bAc
+\end{align*}
+In this case $A$ can derive a leftmost terminal of $b$, not in one derivation
+but in two:
+\[
+\underline{A} \implies \underline{B}C \implies bAcC
+\]
+
+Note that it's possible to have \textit{two} possible
+candidate product rules.
+In this case, we have a \defterm{conflict}.
+The recursive descent parser that looks at the next token
+to derive will not be able to parse the token stream.
+The recursive descent parser that looks at just one token to be derived
+is called an $LL(1)$ parser. In general an $LL$ parser is a parser that
+operates this way:
+\begin{tightlist}
+  \li $L$ -- analyze tokens \underline{l}eft-to-right
+  \li $L$ -- choose the \underline{l}eftmost variable for substitution
+\end{tightlist}
+
+Sometimes conflicts in a $LL(1)$ parser can be resolved when you look ahead
+by \textit{two} tokens.
+If you look at two tokens to decide which
+production rule to choose (when there's a conflict),
+then the recursive descent parser is called an $LL(2)$ parser.
+In general we have $LL(k)$ which looks at $k$ (or less) tokens in the
+token stream to determine which production rule to use.
+
+If there is always a unique production rule to use in an $LL(k)$
+parser, then the runtime is linear (assuming it takes constant time
+to look for the right production rule).
+If the grammar allows you to choose a unique production rule
+after looking at at most $k$ tokens, we say the grammar is an
+$LL(k)$ grammar.
+
+If there are say two possible production rules when you look at
+$k$ tokens, you can try both.
+In general you can talk about $LL(k)$ recursive descent parser
+with backtrack when there are multiple production rules
+after looking at $k$ tokens.
+In this case the runtime is exponential.
+The $k$ is sometimes called the \defterm{look aheads}
+because you are looking into the token stream to see what's coming.
+
+Let's stick to non-backtracking recursive descent for now.
+
+So to speed up the parsing process, I need to have a quick way to answer
+the following question:
+Given a variable $V$ and a token $t$, find all production rules
+that look like this:
+\[
+V \rightarrow t ...
+\]
+This is the first step (a pre-processing step) in recursive descent parsing.
+And we hope that this can be done quickly.
+If there is a unique production rule for all occurring
+$V,t$, then the grammar is $LL(1)$ and we can write a recursive
+descent parser that looks at only one token (look ahead is 1)
+in the token stream.
+
+In particular if you look at the above example grammar:
+For instance consider the following grammar
+\begin{align*}
+  S &\rightarrow \texttt{if} \ E \ \texttt{then} \ S \ \texttt{else} \ S \\
+  S &\rightarrow \texttt{begin} \ S L \\
+  S &\rightarrow \texttt{print} \ \texttt{num} \ \texttt{;}\\
+  L &\rightarrow \texttt{;} \ S \ L \\
+  L &\rightarrow \texttt{end} \\
+  E &\rightarrow \texttt{num} \ \texttt{==} \ \texttt{num} 
+\end{align*}
+All the possibly pairs of $V,t$ looks like this:
+\begin{align*}
+  (S,\texttt{if}): \text{choose} \ S &\rightarrow \texttt{if} \ E \ \texttt{then} \ S \ \texttt{else} \ S \\
+  (S,\texttt{begin}): \text{choose} \ S &\rightarrow \texttt{begin} \ S L \\
+  (S,\texttt{print}): \text{choose} \ S &\rightarrow \texttt{print} \ \texttt{num} \ \texttt{;}\\
+  (S,\texttt{;}): \text{choose} \ L &\rightarrow \texttt{;} \ S \ L \\
+  (S,\texttt{end}): \text{choose} \ L &\rightarrow \texttt{end} \\
+  (E,\texttt{num}): \text{choose} \ E &\rightarrow \texttt{num} \ \texttt{==} \ \texttt{num} 
+\end{align*}
+This is a home run: no conflicts.
+
+Now let's write an OCAML program to parse words in this grammar. 
+
+The input to the parser is a stream of tokens.
+For simplicity, I'll use a list of tokens.
+Here's my type for tokens (the terminals of the grammar):
+{\small
+\VerbatimInput[frame=single]{rdp-1-token-type.ml}
+}
+and here's the type for the variables of the grammar:
+{\small
+\VerbatimInput[frame=single]{rdp-1-token-type.ml}
+}
